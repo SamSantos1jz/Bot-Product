@@ -5,9 +5,9 @@ import time
 
 pyautogui.PAUSE = 0.3
 
-search_navegator = input("Digite o nome do navegador que deseja usar: ")
-user_email = input("Digite seu email: ")
-user_password = input("Digite sua senha: ")
+search_navegator = input("Navegador: ")
+user_email = input("Email: ")
+user_password = input("Senha: ")
 
 time.sleep(5)
 
@@ -27,7 +27,6 @@ pyautogui.press("enter")
 
 time.sleep(10)
 
-print("Esperando os site carregar...")
 pyautogui.press("tab")
 pyautogui.write(user_email)
 pyautogui.press("tab")
@@ -35,10 +34,9 @@ pyautogui.write(user_password)
 pyautogui.press("tab")
 pyautogui.press("enter")
 
-print("Login finalizado")
 print("Iniciando cadastro!")
 
-table = pandas.read_csv("prods.csv")
+table = pandas.read_csv("product.csv")
 
 for row in table.index:
 
@@ -48,10 +46,9 @@ for row in table.index:
     categoria = table.loc[row, "categoria"]
     preco_unitario = table.loc[row, "preco_unitario"]
     custo = table.loc[row, "custo"]
-    obs = table.loc[row, "obs"]
-
+   
     time.sleep(3)
-    pyautogui.click()
+    pyautogui.click(x=512, y=241)
     pyautogui.write(str(codigo))
     pyautogui.press("tab")
     pyautogui.write(str(marca))
@@ -60,11 +57,17 @@ for row in table.index:
     pyautogui.press("tab")
     pyautogui.write(str(categoria))
     pyautogui.press("tab")
-    pyautogui.press(str(preco_unitario))
+    pyautogui.write(str(preco_unitario))
     pyautogui.press("tab")
     pyautogui.write(str(custo))
     pyautogui.press("tab")
-    pyautogui.write(str(obs))
+   
+    obs = table.loc[row, "obs"]
+    
+    if not pandas.isna(obs):
+        pyautogui.write(str(obs))
+
+
     pyautogui.press("tab")
     pyautogui.press("enter")
 
